@@ -4,6 +4,7 @@ import se.lexicon.vxo.data.JsonReader;
 import se.lexicon.vxo.model.Person;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -35,12 +36,10 @@ public class PeopleImpl implements People {
 
 
     public static List<Person> FilterFirstName(String firstName) {
-        List<Person> contains = new ArrayList<>();
-        for(Person p : PeopleImpl.getInstance().getPeople()){
-            if(p.getFirstName().equalsIgnoreCase(firstName)){
-                contains.add(p);
-            }
-        }
+        List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
+                p -> p.getFirstName().equals(firstName)).collect(Collectors.toList()
+        );
+
         return contains;
     }
 }

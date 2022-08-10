@@ -15,7 +15,7 @@ public class App
         People ppl = PeopleImpl.getInstance();
         Collection<Person> people = ppl.getPeople();
         Function<String,List<Person>> filter = PeopleImpl::FilterFirstName;
-        Collection<Person> eriks = filter.apply("Erik");
+        List<Person> eriks = filter.apply("Erik");
         for(Person p : eriks){
             System.out.println(p);
         }
