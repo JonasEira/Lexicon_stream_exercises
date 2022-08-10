@@ -1,15 +1,11 @@
 package se.lexicon.vxo.service;
 
 import se.lexicon.vxo.data.JsonReader;
+import se.lexicon.vxo.model.Gender;
 import se.lexicon.vxo.model.Person;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class PeopleImpl implements People {
 
@@ -35,9 +31,18 @@ public class PeopleImpl implements People {
     }
 
 
-    public static List<Person> FilterFirstName(String firstName) {
+    public static List<Person> filterFirstName(String firstName) {
         List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
                 p -> p.getFirstName().equals(firstName)).collect(Collectors.toList()
+        );
+
+        return contains;
+    }
+
+
+    public static List<Person> filterGender(Gender gender) {
+        List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
+                p -> p.getGender().equals(gender)).collect(Collectors.toList()
         );
 
         return contains;

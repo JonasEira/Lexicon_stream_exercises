@@ -1,6 +1,7 @@
 package se.lexicon.vxo;
 
 
+import se.lexicon.vxo.model.Gender;
 import se.lexicon.vxo.model.Person;
 import se.lexicon.vxo.service.People;
 import se.lexicon.vxo.service.PeopleImpl;
@@ -14,9 +15,10 @@ public class App
     public static void main( String[] args ) {
         People ppl = PeopleImpl.getInstance();
         Collection<Person> people = ppl.getPeople();
-        Function<String,List<Person>> filter = PeopleImpl::FilterFirstName;
-        List<Person> eriks = filter.apply("Erik");
-        for(Person p : eriks){
+        Function<String,List<Person>> filter_name = PeopleImpl::filterFirstName;
+        Function<Gender, List<Person>> filter_gender = PeopleImpl::filterGender;
+        List<Person> result = filter_gender.apply(Gender.FEMALE);
+        for(Person p : result){
             System.out.println(p);
         }
     }
