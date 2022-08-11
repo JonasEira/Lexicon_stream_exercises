@@ -105,7 +105,9 @@ public class StreamExercise {
 
         Person[] result = null;
 
-        //Write code here
+        Function<String, List<Person>> filterName = PeopleImpl::filterFirstName;
+        List<Person> peopleNamedErik = filterName.apply("Erik");
+        result = peopleNamedErik.toArray(new Person[peopleNamedErik.size()]);
 
         assertNotNull(result);
         assertEquals(expectedLength, result.length);
@@ -118,9 +120,8 @@ public class StreamExercise {
     public void task7(){
         Person expected = new Person(5436, "Tea", "Håkansson", LocalDate.parse("1968-01-25"), Gender.FEMALE);
 
-        Optional<Person> optional = null;
+        Optional<Person> optional = PeopleImpl.getPersonById(5436);
 
-        //Write code here
 
         assertNotNull(optional);
         assertTrue(optional.isPresent());

@@ -6,6 +6,7 @@ import se.lexicon.vxo.model.Person;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
 
@@ -60,12 +61,17 @@ public class PeopleImpl implements People {
 
     public static TreeSet<LocalDate> getBirthDates() {
         List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
-                p -> p.getDateOfBirth().isBefore(LocalDate.now())).collect(Collectors.toList()
-        );
+                p -> p.getDateOfBirth().isBefore(LocalDate.now())).collect(Collectors.toList());
         TreeSet<LocalDate> birthDates = new TreeSet<>();
         for(Person p : contains){
             birthDates.add(p.getDateOfBirth());
         }
         return birthDates;
+    }
+
+    public static Optional<Person> getPersonById(Integer integer) {
+        List<Person> pers = PeopleImpl.getInstance().getPeople().stream().filter(p -> p.getPersonId() == integer).collect(Collectors.toList());
+        Optional<Person> tmp = pers.stream().findFirst();
+        return tmp;
     }
 }
