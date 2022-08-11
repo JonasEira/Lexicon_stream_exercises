@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -72,8 +73,8 @@ public class StreamExercise {
         List<Person> females = null;
 
         //Write code here
-        Function<Gender,List<Person>> filter_name = PeopleImpl::filterGender;
-        females = filter_name.apply(Gender.FEMALE);
+        Function<Gender,List<Person>> filterGender = PeopleImpl::filterGender;
+        females = filterGender.apply(Gender.FEMALE);
 
         assertNotNull(females);
         assertEquals(expectedSize, females.size());
@@ -88,7 +89,8 @@ public class StreamExercise {
         Set<LocalDate> dates = null;
 
         //Write code here
-
+        Supplier<TreeSet<LocalDate>> birthdateFilter = PeopleImpl::getBirthDates;
+        dates = birthdateFilter.get();
         assertNotNull(dates);
         assertTrue(dates instanceof TreeSet);
         assertEquals(expectedSize, dates.size());

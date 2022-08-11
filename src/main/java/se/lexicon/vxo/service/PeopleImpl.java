@@ -4,7 +4,9 @@ import se.lexicon.vxo.data.JsonReader;
 import se.lexicon.vxo.model.Gender;
 import se.lexicon.vxo.model.Person;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class PeopleImpl implements People {
@@ -54,5 +56,16 @@ public class PeopleImpl implements People {
         );
 
         return contains;
+    }
+
+    public static TreeSet<LocalDate> getBirthDates() {
+        List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
+                p -> p.getDateOfBirth().isBefore(LocalDate.now())).collect(Collectors.toList()
+        );
+        TreeSet<LocalDate> birthDates = new TreeSet<>();
+        for(Person p : contains){
+            birthDates.add(p.getDateOfBirth());
+        }
+        return birthDates;
     }
 }
