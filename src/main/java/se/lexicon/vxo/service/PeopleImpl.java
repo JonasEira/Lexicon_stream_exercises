@@ -39,6 +39,14 @@ public class PeopleImpl implements People {
         return contains;
     }
 
+    public static List<Person> filterLastName(String lastName) {
+        List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
+                p -> p.getLastName().equals(lastName)).collect(Collectors.toList()
+        );
+
+        return contains;
+    }
+
 
     public static List<Person> filterGender(Gender gender) {
         List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(

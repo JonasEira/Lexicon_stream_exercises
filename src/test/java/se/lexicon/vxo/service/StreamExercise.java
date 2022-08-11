@@ -8,6 +8,7 @@ import se.lexicon.vxo.model.PersonDto;
 import java.time.LocalDate;
 import java.time.Period;
 import java.util.*;
+import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -31,6 +32,7 @@ public class StreamExercise {
         List<Integer> integers = Arrays.asList(1,2,3,4,5,6,7,8,9,10);
 
         //Write code here
+        integers.stream().forEach(System.out::println);
 
     }
 
@@ -42,6 +44,7 @@ public class StreamExercise {
         long amount = 0;
 
         //Write code here
+        amount = PeopleImpl.getInstance().getPeople().stream().count();
 
         assertEquals(10000, amount);
     }
@@ -55,7 +58,8 @@ public class StreamExercise {
         int expected = 90;
 
         //Write code here
-
+        Function<String,List<Person>> filter_name = PeopleImpl::filterLastName;
+        amount = filter_name.apply("Andersson").stream().count();
         assertEquals(expected, amount);
     }
 
