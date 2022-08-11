@@ -72,7 +72,8 @@ public class StreamExercise {
         List<Person> females = null;
 
         //Write code here
-
+        Function<Gender,List<Person>> filter_name = PeopleImpl::filterGender;
+        females = filter_name.apply(Gender.FEMALE);
 
         assertNotNull(females);
         assertEquals(expectedSize, females.size());
