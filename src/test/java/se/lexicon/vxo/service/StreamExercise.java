@@ -11,6 +11,7 @@ import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -135,7 +136,7 @@ public class StreamExercise {
     public void task8(){
         LocalDate expectedBirthDate = LocalDate.parse("1910-01-02");
 
-        Optional<Person> optional = null;
+        Optional<Person> optional = PeopleImpl.getInstance().getPeople().stream().min(Comparator.comparing(Person::getDateOfBirth));
 
         //Write code here
 
@@ -150,8 +151,9 @@ public class StreamExercise {
     public void task9(){
         int expectedSize = 892;
         LocalDate date = LocalDate.parse("1920-01-01");
+        Function<LocalDate, List<PersonDto>> ppl = PeopleImpl::filterBirthDates;
 
-        List<PersonDto> dtoList = null;
+        List<PersonDto> dtoList = ppl.apply(date);
 
         //Write code here
 

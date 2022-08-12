@@ -3,11 +3,10 @@ package se.lexicon.vxo.service;
 import se.lexicon.vxo.data.JsonReader;
 import se.lexicon.vxo.model.Gender;
 import se.lexicon.vxo.model.Person;
+import se.lexicon.vxo.model.PersonDto;
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
-import java.util.TreeSet;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class PeopleImpl implements People {
@@ -74,4 +73,19 @@ public class PeopleImpl implements People {
         Optional<Person> tmp = pers.stream().findFirst();
         return tmp;
     }
+
+    public static List<PersonDto> filterBirthDates(LocalDate localDate) {
+        List<Person> tmpList = PeopleImpl.getInstance().getPeople().stream().filter(p -> p.getDateOfBirth().isBefore(localDate)).collect(Collectors.toList());
+        List<PersonDto> result = new ArrayList<>();
+        for(Person p : tmpList){
+            PersonDto tmp = new PersonDto(p.getPersonId(), p.getFirstName() + " " + p.getLastName());
+            result.add(tmp);
+        }
+        return result;
+    }
+
+    /*public static Optional<Person> minAgeIs() {
+        Optional<Person> tmp = PeopleImpl.getInstance().getPeople().stream().min((p1, p2) -> p1.getDateOfBirth().toEpochDay() < p2.getDateOfBirth().toEpochDay()).get();
+        return tmp;
+    }*/
 }
