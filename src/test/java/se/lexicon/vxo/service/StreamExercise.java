@@ -204,8 +204,24 @@ public class StreamExercise {
     public void task12(){
         String[] expected = {"Ada", "Ana", "Anna", "Ava", "Aya", "Bob", "Ebbe", "Efe", "Eje", "Elle", "Hannah", "Maram", "Natan", "Otto"};
 
-        String[] result = null;
+        Supplier<List<Person>> getPalindromes = PeopleImpl::getPalindromes;
+        List<String> names = new ArrayList<>();
+        List<Person> palindromes = getPalindromes.get();
+        for(Person p : palindromes){
 
+            boolean isInVector = false;
+            for(String name : names) {
+                if (p.getFirstName().equals(name)) {
+                    isInVector = true;
+                }
+            }
+            if(!isInVector){
+                names.add(p.getFirstName());
+            }
+        }
+        Collections.sort(names);
+        String[] result = names.toArray(new String[0]);
+        System.out.println(names);
         //Write code here
 
         assertNotNull(result);

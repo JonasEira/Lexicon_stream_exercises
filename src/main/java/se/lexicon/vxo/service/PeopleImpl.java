@@ -18,18 +18,18 @@ public class PeopleImpl implements People {
         INSTANCE = new PeopleImpl();
     }
 
-    public static PeopleImpl getInstance(){
+    public static PeopleImpl getInstance() {
         return INSTANCE;
     }
 
     private List<Person> people;
 
-    private PeopleImpl(){
+    private PeopleImpl() {
         people = JsonReader.getInstance().read();
     }
 
     @Override
-    public List<Person> getPeople(){
+    public List<Person> getPeople() {
         return people;
     }
 
@@ -63,7 +63,7 @@ public class PeopleImpl implements People {
         List<Person> contains = PeopleImpl.getInstance().getPeople().stream().filter(
                 p -> p.getDateOfBirth().isBefore(LocalDate.now())).collect(Collectors.toList());
         TreeSet<LocalDate> birthDates = new TreeSet<>();
-        for(Person p : contains){
+        for (Person p : contains) {
             birthDates.add(p.getDateOfBirth());
         }
         return birthDates;
@@ -78,7 +78,7 @@ public class PeopleImpl implements People {
     public static List<PersonDto> filterBirthDates(LocalDate localDate) {
         List<Person> tmpList = PeopleImpl.getInstance().getPeople().stream().filter(p -> p.getDateOfBirth().isBefore(localDate)).collect(Collectors.toList());
         List<PersonDto> result = new ArrayList<>();
-        for(Person p : tmpList){
+        for (Person p : tmpList) {
             PersonDto tmp = new PersonDto(p.getPersonId(), p.getFirstName() + " " + p.getLastName());
             result.add(tmp);
         }
@@ -104,6 +104,32 @@ public class PeopleImpl implements People {
         int numPpl = 0;
         OptionalDouble test = PeopleImpl.getInstance().getPeople().stream().mapToDouble(Person::getAge).average();
         return test;
+    }
+
+    private static boolean isPalindrome(String s) {
+        String str = s.toLowerCase();
+        String rev = "";
+        boolean ans = false;
+        for (int i = str.length() - 1; i >= 0; i--) {
+            rev = rev + str.charAt(i);
+        }
+
+        if (str.equals(rev)) {
+            ans = true;
+        }
+        return ans;
+
+    }
+
+    public static List<Person> getPalindromes() {
+        ArrayList<Person> namePalindromes = new ArrayList<>();
+        for (Person person : PeopleImpl.getInstance().getPeople()) {
+            if (isPalindrome(person.getFirstName())) {
+                namePalindromes.add(person);
+            }
+        }
+
+        return namePalindromes;
     }
 
     /*public static Optional<Person> minAgeIs() {
