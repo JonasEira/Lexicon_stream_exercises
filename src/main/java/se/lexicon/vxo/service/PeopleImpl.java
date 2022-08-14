@@ -84,6 +84,19 @@ public class PeopleImpl implements People {
         return result;
     }
 
+    public static Optional<String> getPersonByIdAndBirthdate(Integer integer) {
+        Optional<Person> person = getPersonById(integer);
+        Person p = person.get();
+        String tmp = p.getDateOfBirth().getDayOfWeek().toString()
+                + " " + p.getDateOfBirth().getDayOfMonth()
+                + " " + p.getDateOfBirth().getMonth().toString()
+                + " " + p.getDateOfBirth().getYear();
+        List<String> tmpList = new ArrayList<>();
+        tmpList.add(tmp);
+        Optional<String> test = tmpList.stream().findFirst();
+        return test;
+    }
+
     /*public static Optional<Person> minAgeIs() {
         Optional<Person> tmp = PeopleImpl.getInstance().getPeople().stream().min((p1, p2) -> p1.getDateOfBirth().toEpochDay() < p2.getDateOfBirth().toEpochDay()).get();
         return tmp;

@@ -169,8 +169,8 @@ public class StreamExercise {
     public void task10(){
         String expected = "WEDNESDAY 19 DECEMBER 2012";
         int personId = 5914;
-
-        Optional<String> optional = null;
+        Function<Integer, Optional<String>> test = PeopleImpl::getPersonByIdAndBirthdate;
+        Optional<String> optional = test.apply(personId);
 
         //Write code here
 
