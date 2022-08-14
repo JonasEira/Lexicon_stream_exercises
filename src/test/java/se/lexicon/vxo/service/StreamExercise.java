@@ -188,8 +188,9 @@ public class StreamExercise {
         ToIntFunction<Person> personToAge =
                 person -> Period.between(person.getDateOfBirth(), LocalDate.parse("2019-12-20")).getYears();
         double expected = 54.42;
-        double averageAge = 0;
-
+        double averageAge = 0.0;
+        Supplier<OptionalDouble> avgAge = PeopleImpl::getAverageAge;
+        averageAge = avgAge.get().getAsDouble();
         //Write code here
 
         assertTrue(averageAge > 0);

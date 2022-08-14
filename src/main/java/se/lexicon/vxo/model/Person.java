@@ -71,4 +71,8 @@ public class Person implements Serializable {
         sb.append('}');
         return sb.toString();
     }
+
+    public double getAge() {
+        return (double)LocalDate.now().getYear() - (double)dateOfBirth.getYear();
+    }
 }

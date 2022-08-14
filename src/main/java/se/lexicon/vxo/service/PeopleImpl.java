@@ -7,6 +7,7 @@ import se.lexicon.vxo.model.PersonDto;
 
 import java.time.LocalDate;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class PeopleImpl implements People {
@@ -87,13 +88,21 @@ public class PeopleImpl implements People {
     public static Optional<String> getPersonByIdAndBirthdate(Integer integer) {
         Optional<Person> person = getPersonById(integer);
         Person p = person.get();
-        String tmp = p.getDateOfBirth().getDayOfWeek().toString()
-                + " " + p.getDateOfBirth().getDayOfMonth()
-                + " " + p.getDateOfBirth().getMonth().toString()
-                + " " + p.getDateOfBirth().getYear();
+        LocalDate bd = p.getDateOfBirth();
+        String tmp = bd.getDayOfWeek().toString()
+                + " " + bd.getDayOfMonth()
+                + " " + bd.getMonth().toString()
+                + " " + bd.getYear();
         List<String> tmpList = new ArrayList<>();
         tmpList.add(tmp);
         Optional<String> test = tmpList.stream().findFirst();
+        return test;
+    }
+
+    public static OptionalDouble getAverageAge() {
+        double averageAge = 0.0;
+        int numPpl = 0;
+        OptionalDouble test = PeopleImpl.getInstance().getPeople().stream().mapToDouble(Person::getAge).average();
         return test;
     }
 
