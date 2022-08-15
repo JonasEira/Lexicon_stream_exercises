@@ -7,11 +7,13 @@ import se.lexicon.vxo.model.PersonDto;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -258,6 +260,13 @@ public class StreamExercise {
         LocalDate[] _2020_dates = null;
 
         //Write code here
+        ArrayList<LocalDate> days = new ArrayList<>();
+        LocalDate start = LocalDate.parse("2020-01-01"),
+                end   = LocalDate.parse("2020-12-31");
+        Stream.iterate(start, date -> date.plusDays(1))
+                .limit(ChronoUnit.DAYS.between(start, end) + 1)
+                .forEach(days::add);
+        _2020_dates = days.toArray(new LocalDate[0]);
 
 
         assertNotNull(_2020_dates);
