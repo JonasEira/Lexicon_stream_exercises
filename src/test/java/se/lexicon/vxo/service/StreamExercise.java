@@ -234,8 +234,16 @@ public class StreamExercise {
     @Test
     public void task13(){
         int expectedSize = 107;
-        Map<String, List<Person>> personMap = null;
-
+        Map<String, List<Person>> personMap = new HashMap<>();
+        Function<String, List<Person>> mapName = PeopleImpl::filterLastName;
+        for(Person p : PeopleImpl.getInstance().getPeople()){
+            List<Person> tryToGetPeople = personMap.get(p.getLastName());
+            if(tryToGetPeople == null) {
+                personMap.put(p.getLastName(), mapName.apply(p.getLastName()));
+            } else {
+                tryToGetPeople.add(p);
+            }
+        }
         //Write code here
 
         assertNotNull(personMap);
